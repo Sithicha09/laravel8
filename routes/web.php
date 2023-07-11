@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MyProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -65,16 +66,16 @@ Route::get("/gallery/god", function () {
     return view("test/god", compact("god"));
 });
 
-Route::get("/teacher" , function (){
-	return view("teacher");
+Route::get("/teacher", function () {
+    return view("teacher");
 });
 
-Route::get("/student" , function (){
-	return view("student");
+Route::get("/student", function () {
+    return view("student");
 });
 
-Route::get("/theme" , function (){
-	return view("theme");
+Route::get("/theme", function () {
+    return view("theme");
 });
 
 // Route Template Inheritance
@@ -100,9 +101,15 @@ Route::get('/tables', function () {
 });
 
 
-
-
 Route::get("/tables/component", function () {
     return view("tables-component");
 });
 
+Route::get("/myprofile/create", [MyProfileController::class, "create"]);
+Route::get("/myprofile/{id}/edit", [MyProfileController::class, "edit"]);
+Route::get("/myprofile/{id}", [MyProfileController::class, "show"]);
+Route::get( "/coronavirus" ,[ MyProfileController::class , "coronavirus" ] );
+
+Route::get( "/newgallery" , [ MyProfileController::class , "gallery" ] );
+Route::get( "/newgallery/ant" , [ MyProfileController::class , "ant" ] );
+Route::get( "/newgallery/bird" , [ MyProfileController::class , "bird" ] );
