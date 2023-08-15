@@ -68,10 +68,9 @@ Route::get("/gallery/god", function () {
     $god = "https://www.blackoutx.com/wp-content/uploads/2021/04/Thor.jpg";
     return view("test/god", compact("god"));
 });
-Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::get("/teacher", function () {
-        return view("teacher");
-    });
+
+Route::get("/teacher", function () {
+    return view("teacher");
 });
 
 Route::get("/student", function () {
@@ -92,11 +91,9 @@ Route::get("/student/inheritance", function () {
 });
 
 // Route Template Component
-
 Route::get("/teacher/component", function () {
     return view("teacher-component");
 });
-
 
 Route::get("/student/component", function () {
     return view("student-component");
@@ -137,10 +134,5 @@ Route::delete("/product/{id}", [ProductController::class, "destroy"])->name('pro
 //Route::get('/staff/{id}', [StaffController::class, "show"])->name('staff.show');
 //Route::get("/staff/{id}/edit", [StaffController::class, "edit"])->name('staff.edit');
 
-Route::resource('/staff', StaffController::class);
+Route::resource('/staff', StaffController::class );
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
-
-require __DIR__ . '/auth.php';
