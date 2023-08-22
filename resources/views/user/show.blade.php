@@ -93,6 +93,44 @@
                                     @endforeach
                                 </tbody>
                             </table>
+
+                            <hr>
+                            @php
+                            $post = $user->post()->get();
+                            @endphp
+                            <h2 class="pt-4">{{ $user->name }}'s post</h2>
+
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th><th>Title</th><th>Content</th><th>Category</th><th>User Id</th><th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($post as $item)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $item->title }}</td><td>{{ $item->content }}</td><td>{{ $item->category }}</td><td>{{ $item->user_id }}</td>
+                                        <td>
+                                            <a href="{{ url('/post/' . $item->id) }}" title="View Post"><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
+                                            <a href="{{ url('/post/' . $item->id . '/edit') }}" title="Edit Post"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
+
+                                            <form method="POST" action="{{ url('/post' . '/' . $item->id) }}" accept-charset="UTF-8" style="display:inline">
+                                                {{ method_field('DELETE') }}
+                                                {{ csrf_field() }}
+                                                <button type="submit" class="btn btn-danger btn-sm" title="Delete Post" onclick="return confirm('Confirm delete?')"><i class="fa fa-trash-o" aria-hidden="true"></i> Delete</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+
+
+
+
+
+
                             <hr>
                             @php
                             $vehicle = $user->vehicles()->orderBy("year","desc")->get();
@@ -108,8 +146,6 @@
                             <div>ค่าเฉลี่ยระยะไมล์ : {{ $average }} </div>
                             <div>ค่าระยะไมล์น้อยสุด : {{ $min }} </div>
                             <div>ค่าระยะไมล์มากสุด : {{ $max }} </div>
-
-
                         </div>
 
                     </div>
